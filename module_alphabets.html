@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignConnect | Alphabet Learning</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffede7 0%, #e0f7fa 100%);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .main-content {
+            flex: 1;
+            padding-bottom: 50px;
+        }
+        .navbar {
+            background: linear-gradient(to right, #ff6e40, #26c6da);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #fff !important;
+            transition: color 0.3s ease;
+        }
+        .navbar-brand:hover {
+            color: #e0f7fa !important;
+        }
+        .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: #e0f7fa !important;
+            transform: translateY(-2px);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #e0f7fa;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .logo-img {
+            height: 45px;
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+        }
+        .logo-img:hover {
+            transform: rotate(15deg);
+        }
+        .card {
+            background: #ffffff;
+            border: 2px solid transparent;
+            border-image: linear-gradient(to right, #ff6e40, #26c6da) 1;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            animation: cardEntry 0.5s ease-out;
+        }
+        @keyframes cardEntry {
+            0% { transform: translateY(20px) scale(0.95); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        .card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 110, 64, 0.3);
+        }
+        .card.clicked {
+            animation: pop 0.2s ease;
+        }
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .card-body {
+            text-align: center;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Ccircle fill="%23ff6e40" fill-opacity="0.05" cx="100" cy="100" r="90"/%3E%3C/svg%3E');
+        }
+        .card-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff6e40;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .card img {
+            max-height: 180px;
+            object-fit: contain;
+            margin: 10px auto;
+            transition: transform 0.3s ease;
+        }
+        .card:hover img {
+            transform: scale(1.1);
+        }
+        .badge-completed {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #d81b60;
+            color: #fff;
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: none;
+        }
+        .card.completed .badge-completed {
+            display: block;
+        }
+        .progress-bar {
+            height: 6px;
+            border-radius: 3px;
+            background-color: #26c6da;
+        }
+        .header-section {
+            padding: 60px 0;
+            background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%23ff6e40" fill-opacity="0.1" d="M0,128L48,138.7C96,149,192,171,288,186.7C384,203,480,213,576,192C672,171,768,117,864,96C960,75,1056,85,1152,106.7C1248,128,1344,160,1392,176L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center bottom;
+            background-size: cover;
+        }
+        .header-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #3e2723;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header-section p {
+            font-size: 1.2rem;
+            color: #5d4037;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, #ff6e40, #d81b60);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(to right, #d81b60, #ff6e40);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .abstract-shape {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        .shape-1 {
+            top: 10%;
+            left: 5%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #26c6da, transparent);
+            border-radius: 50%;
+        }
+        .shape-2 {
+            bottom: 20%;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #d81b60, transparent);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+        @media (max-width: 768px) {
+            .card-title {
+                font-size: 2rem;
+            }
+            .header-section h1 {
+                font-size: 2.2rem;
+            }
+            .card img {
+                max-height: 150px;
+            }
+            .navbar-nav {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Abstract Shapes -->
+    <div class="abstract-shape shape-1"></div>
+    <div class="abstract-shape shape-2"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/logo.png" alt="Logo" class="logo-img">
+                <span>SignConnect</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="alphabet.html">Alphabet</a></li>
+                    <li class="nav-item"><a class="nav-link" href="words.html">Words</a></li>
+                    <li class="nav-item"><a class="nav-link" href="quizzes.html">Quizzes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="progress.html">Progress</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container text-center main-content">
+        <div class="header-section" data-aos="fade-down">
+            <h1 class="text-primary mb-3">🔤 Master Sign Language</h1>
+            <p class="lead text-secondary">Track your progress and learn the alphabet with interactive cards!</p>
+            <div class="row mt-4">
+                <div class="col-md-4"><p><strong>Letters Learned:</strong> <span id="letters">0/26</span></p></div>
+                <div class="col-md-4"><p><strong>Test Score:</strong> <span id="score">0%</span></p></div>
+            </div>
+        </div>
+
+        <!-- Alphabet Cards -->
+        <div class="row justify-content-center">
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="50">
+                <div class="card p-3" onclick="redirectToVideo('A')">
+                    <div class="card-body">
+                        <h3 class="card-title">A</h3>
+                        <img src="card_images/A.png" alt="Sign for A">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="card p-3" onclick="redirectToVideo('B')">
+                    <div class="card-body">
+                        <h3 class="card-title">B</h3>
+                        <img src="card_images/B.png" alt="Sign for B">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="150">
+                <div class="card p-3" onclick="redirectToVideo('C')">
+                    <div class="card-body">
+                        <h3 class="card-title">C</h3>
+                        <img src="card_images/C.png" alt="Sign for C">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="card p-3" onclick="redirectToVideo('D')">
+                    <div class="card-body">
+                        <h3 class="card-title">D</h3>
+                        <img src="card_images/D.png" alt="Sign for D">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="250">
+                <div class="card p-3" onclick="redirectToVideo('E')">
+                    <div class="card-body">
+                        <h3 class="card-title">E</h3>
+                        <img src="card_images/E.png" alt="Sign for E">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+                <div class="card p-3" onclick="redirectToVideo('F')">
+                    <div class="card-body">
+                        <h3 class="card-title">F</h3>
+                        <img src="card_images/F.png" alt="Sign for F">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="350">
+                <div class="card p-3" onclick="redirectToVideo('G')">
+                    <div class="card-body">
+                        <h3 class="card-title">G</h3>
+                        <img src="card_images/G.png" alt="Sign for G">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="400">
+                <div class="card p-3" onclick="redirectToVideo('H')">
+                    <div class="card-body">
+                        <h3 class="card-title">H</h3>
+                        <img src="card_images/H.png" alt="Sign for H">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="450">
+                <div class="card p-3" onclick="redirectToVideo('I')">
+                    <div class="card-body">
+                        <h3 class="card-title">I</h3>
+                        <img src="card_images/I.png" alt="Sign for I">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="500">
+                <div class="card p-3" onclick="redirectToVideo('J')">
+                    <div class="card-body">
+                        <h3 class="card-title">J</h3>
+                        <img src="card_images/J.png" alt="Sign for J">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="550">
+                <div class="card p-3" onclick="redirectToVideo('K')">
+                    <div class="card-body">
+                        <h3 class="card-title">K</h3>
+                        <img src="card_images/K.png" alt="Sign for K">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="600">
+                <div class="card p-3" onclick="redirectToVideo('L')">
+                    <div class="card-body">
+                        <h3 class="card-title">L</h3>
+                        <img src="card_images/L.png" alt="Sign for L">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="650">
+                <div class="card p-3" onclick="redirectToVideo('M')">
+                    <div class="card-body">
+                        <h3 class="card-title">M</h3>
+                        <img src="card_images/M.png" alt="Sign for M">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="700">
+                <div class="card p-3" onclick="redirectToVideo('N')">
+                    <div class="card-body">
+                        <h3 class="card-title">N</h3>
+                        <img src="card_images/N.png" alt="Sign for N">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="750">
+                <div class="card p-3" onclick="redirectToVideo('O')">
+                    <div class="card-body">
+                        <h3 class="card-title">O</h3>
+                        <img src="card_images/O.png" alt="Sign for O">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="800">
+                <div class="card p-3" onclick="redirectToVideo('P')">
+                    <div class="card-body">
+                        <h3 class="card-title">P</h3>
+                        <img src="card_images/P.png" alt="Sign for P">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="850">
+                <div class="card p-3" onclick="redirectToVideo('Q')">
+                    <div class="card-body">
+                        <h3 class="card-title">Q</h3>
+                        <img src="card_images/Q.png" alt="Sign for Q">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="900">
+                <div class="card p-3" onclick="redirectToVideo('R')">
+                    <div class="card-body">
+                        <h3 class="card-title">R</h3>
+                        <img src="card_images/R.png" alt="Sign for R">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="950">
+                <div class="card p-3" onclick="redirectToVideo('S')">
+                    <div class="card-body">
+                        <h3 class="card-title">S</h3>
+                        <img src="card_images/S.png" alt="Sign for S">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="1000">
+                <div class="card p-3" onclick="redirectToVideo('T')">
+                    <div class="card-body">
+                        <h3 class="card-title">T</h3>
+                        <img src="card_images/T.png" alt="Sign for T">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="1050">
+                <div class="card p-3" onclick="redirectToVideo('U')">
+                    <div class="card-body">
+                        <h3 class="card-title">U</h3>
+                        <img src="card_images/U.png" alt="Sign for U">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="1100">
+                <div class="card p-3" onclick="redirectToVideo('V')">
+                    <div class="card-body">
+                        <h3 class="card-title">V</h3>
+                        <img src="card_images/V.png" alt="Sign for V">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="1150">
+                <div class="card p-3" onclick="redirectToVideo('W')">
+                    <div class="card-body">
+                        <h3 class="card-title">W</h3>
+                        <img src="card_images/W.png" alt="Sign for W">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="1200">
+                <div class="card p-3" onclick="redirectToVideo('X')">
+                    <div class="card-body">
+                        <h3 class="card-title">X</h3>
+                        <img src="card_images/X.png" alt="Sign for X">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="1250">
+                <div class="card p-3" onclick="redirectToVideo('Y')">
+                    <div class="card-body">
+                        <h3 class="card-title">Y</h3>
+                        <img src="card_images/Y.png" alt="Sign for Y">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="1300">
+                <div class="card p-3" onclick="redirectToVideo('Z')">
+                    <div class="card-body">
+                        <h3 class="card-title">Z</h3>
+                        <img src="card_images/Z.png" alt="Sign for Z">
+                        <span class="badge-completed">✓ Completed</span>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Button -->
+        <div class="my-5" data-aos="fade-up">
+            <a href="alphabet_test.html" class="btn btn-primary btn-lg">Test Your Sign Language Skills</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+        });
+
+        // Initialize progress from localStorage
+        function initializeProgress() {
+            const progress = JSON.parse(localStorage.getItem('alphabetProgress')) || {};
+            const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            
+            // Ensure all alphabets are in progress object
+            alphabets.forEach(letter => {
+                if (!(letter in progress)) {
+                    progress[letter] = { completed: false };
+                }
+            });
+
+            // Update UI for each card
+            alphabets.forEach(letter => {
+                const card = document.querySelector(`[onclick="redirectToVideo('${letter}')"]`);
+                const progressBar = card.querySelector('.progress-bar');
+                if (progress[letter].completed) {
+                    card.classList.add('completed');
+                    progressBar.style.width = '100%';
+                    progressBar.setAttribute('aria-valuenow', '100');
+                } else {
+                    card.classList.remove('completed');
+                    progressBar.style.width = '0%';
+                    progressBar.setAttribute('aria-valuenow', '0');
+                }
+            });
+
+            updateStats();
+            localStorage.setItem('alphabetProgress', JSON.stringify(progress));
+        }
+
+        // Save progress to localStorage
+        function saveProgress(letter, completed = true) {
+            const progress = JSON.parse(localStorage.getItem('alphabetProgress')) || {};
+            progress[letter] = { completed };
+            localStorage.setItem('alphabetProgress', JSON.stringify(progress));
+        }
+
+        // Update stats display
+        function updateStats() {
+            const progress = JSON.parse(localStorage.getItem('alphabetProgress')) || {};
+            const completedCount = Object.values(progress).filter(p => p.completed).length;
+            document.getElementById('letters').textContent = `${completedCount}/26`;
+            document.getElementById('score').textContent = `${Math.round((completedCount / 26) * 100)}%`;
+        }
+
+        // Redirect to test page
+        function redirectToVideo(letter) {
+            const card = document.querySelector(`[onclick="redirectToVideo('${letter}')"]`);
+            card.classList.add('clicked');
+            saveProgress(letter, true); // Mark as completed on click
+            updateStats();
+            setTimeout(() => {
+                window.location.href = `video.html?letter=${letter}`;
+            }, 200);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializeProgress);
+    </script>
+</body>
+</html>

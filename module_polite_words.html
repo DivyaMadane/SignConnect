@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SignConnect | Polite Words Module</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-content {
+      flex: 1;
+    }
+    .card-hover {
+      transition: all 0.3s ease-in-out;
+    }
+    .card-hover:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    .navbar {
+      background: linear-gradient(to right, #43cea2, #185a9d);
+    }
+    .logo-img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    .video-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    video {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark shadow">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="assets/logo.png" alt="Logo" class="logo-img">
+        <span>SignConnect</span>
+      </a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container text-center main-content">
+    <div class="py-5" data-aos="fade-down">
+      <h1 class="text-primary mb-3">🙏 Polite Words</h1>
+      <p class="lead text-secondary">Learn the basic polite words in Sign Language, like Sorry, Thank You, Please, and Welcome.</p>
+    </div>
+
+    <!-- Polite Words Section -->
+    <div class="row g-4" data-aos="fade-up">
+      <!-- Sorry -->
+      <div class="col-md-6">
+        <div class="card card-hover p-3">
+          <div class="card-body">
+            <h3 class="card-title text-success">🙏 Sorry</h3>
+            <div class="video-container">
+              <video controls>
+                <source src="Polite_Words/sorry.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thank You -->
+      <div class="col-md-6">
+        <div class="card card-hover p-3">
+          <div class="card-body">
+            <h3 class="card-title text-warning">🙏 Thank You</h3>
+            <div class="video-container">
+              <video controls>
+                <source src="Polite_Words/thankyou.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Please -->
+      <div class="col-md-6">
+        <div class="card card-hover p-3">
+          <div class="card-body">
+            <h3 class="card-title text-info">🙏 Please</h3>
+            <div class="video-container">
+              <video controls>
+                <source src="Polite_Words/please.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Welcome -->
+      <div class="col-md-6">
+        <div class="card card-hover p-3">
+          <div class="card-body">
+            <h3 class="card-title text-danger">🙏 Welcome</h3>
+            <div class="video-container">
+              <video controls>
+                <source src="Polite_Words/welcome.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="text-center p-3 bg-light mt-auto">
+    © 2025 SignConnect | Empowering Communication
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>

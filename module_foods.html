@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SignConnect | Food Module</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #f8f9fa, #e3f2fd);
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-content {
+      flex: 1;
+    }
+    .card-hover {
+      transition: all 0.3s ease-in-out;
+    }
+    .card-hover:hover {
+      transform: scale(1.03);
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    .navbar {
+      background: linear-gradient(to right, #43cea2, #185a9d);
+    }
+    .logo-img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    video {
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark shadow">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="assets/logo.png" alt="Logo" class="logo-img">
+      <span>SignConnect</span>
+    </a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container py-5 main-content">
+  <div class="text-center mb-5" data-aos="fade-down">
+    <h1 class="text-primary">🍽️ Food Signs Learning</h1>
+    <p class="lead text-secondary">Learn how to sign various food-related words!</p>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Meals Section -->
+    <div class="col-12" data-aos="fade-up">
+      <div class="card card-hover p-4">
+        <h2 class="text-success mb-4">🥗 Meals</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <h5>Breakfast</h5>
+            <video class="w-100" controls>
+              <source src="Food_Times/Breakfast.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="col-md-4">
+            <h5>Lunch</h5>
+            <video class="w-100" controls>
+              <source src="Food_Times/Lunch.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="col-md-4">
+            <h5>Dinner</h5>
+            <video class="w-100" controls>
+              <source src="Food_Times/Dinner.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vegetarian Section -->
+    <div class="col-12" data-aos="fade-up">
+      <div class="card card-hover p-4">
+        <h2 class="text-warning mb-4">🌱 Vegetarian Foods</h2>
+        <div class="row g-4">
+          <div class="col-md-3">
+            <h5>Idli</h5>
+            <video class="w-100" controls>
+              <source src="Food_Items Veg- Non veg/Idli.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="col-md-3">
+            <h5>Dosa</h5>
+            <video class="w-100" controls>
+              <source src="Food_Items Veg- Non veg/Dosa.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="col-md-3">
+            <h5>Wada</h5>
+            <video class="w-100" controls>
+              <source src="Food_Items Veg- Non veg/Wada.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="col-md-3">
+            <h5>Samosa</h5>
+            <video class="w-100" controls>
+              <source src="Food_Items Veg- Non veg/Samosa.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Non-Vegetarian Section -->
+    <div class="col-12" data-aos="fade-up">
+      <div class="card card-hover p-4">
+        <h2 class="text-danger mb-4">🍗 Non-Vegetarian Foods</h2>
+        <div class="row g-4">
+          <div class="col-md-3">
+            <h5>Meat</h5>
+            <video class="w-100" controls>
+              <source src="Food_Items Veg- Non veg/Meat.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="col-md-3">
+            <h5>Chicken</h5>
+            <video class="w-100" controls>
+              <source src="Food_Items Veg- Non veg/Chicken.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="col-md-3">
+            <h5>Egg</h5>
+            <video class="w-100" controls>
+              <source src="Food_Items Veg- Non veg/Egg.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="col-md-3">
+            <h5>Fish</h5>
+            <video class="w-100" controls>
+              <source src="Food_Items Veg- Non veg/Fish.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center p-3 bg-light mt-auto">
+  © 2025 SignConnect | Empowering Communication
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
+</body>
+</html>

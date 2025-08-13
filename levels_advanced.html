@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SignConnect | Advanced Modules</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(to right, #f8f9fa, #e0e0e0);
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-content {
+      flex: 1;
+    }
+    .card-hover {
+      transition: all 0.3s ease-in-out;
+    }
+    .card-hover:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    .navbar {
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+    }
+    .logo-img {
+      height: 40px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark shadow">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="assets/logo.png" alt="Logo" class="logo-img">
+        <span>SignConnect</span>
+      </a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container text-center main-content">
+    <div class="py-5" data-aos="fade-down">
+      <h1 class="text-danger mb-3">🚀 Advanced Level</h1>
+      <p class="lead text-secondary">Explore deeper into Sign Language with advanced categories!</p>
+    </div>
+
+    <div class="row g-4" data-aos="fade-up">
+      <!-- Food Module -->
+      <div class="col-md-6">
+        <div class="card card-hover p-4">
+          <div class="card-body">
+            <h3 class="card-title text-success">🍽️ Food Items</h3>
+            <p class="card-text">Learn signs for Vegetables, Non-Veg Items, Fruits and Meals.</p>
+            <a href="module_foods.html" class="btn btn-success mt-3">Start Learning</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Family Module -->
+      <div class="col-md-6">
+        <div class="card card-hover p-4">
+          <div class="card-body">
+            <h3 class="card-title text-primary">👨‍👩‍👧‍👦 Family Words</h3>
+            <p class="card-text">Learn to express relations like Father, Mother, Brother and more.</p>
+            <a href="module_family.html" class="btn btn-primary mt-3">Start Learning</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center p-3 bg-light mt-auto">
+    © 2025 SignConnect | Empowering Communication
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>

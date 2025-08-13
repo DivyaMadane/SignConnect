@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SignConnect | Greetings Learning</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #e0f7fa, #e1f5fe);
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .main-content {
+            flex: 1;
+        }
+        .card-hover {
+            transition: all 0.3s ease-in-out;
+        }
+        .card-hover:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .navbar {
+            background: linear-gradient(to right, #43cea2, #185a9d);
+        }
+        .logo-img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .card-body {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card img {
+            max-height: 200px;
+            object-fit: contain;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/logo.png" alt="Logo" class="logo-img">
+                <span>SignConnect</span>
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="numbers.html">Numbers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container text-center main-content">
+        <div class="py-5" data-aos="fade-down">
+            <h1 class="text-primary mb-3">🙌 Greetings Learning</h1>
+            <p class="lead text-secondary">Click a greeting card to start learning its sign!</p>
+        </div>
+
+        <!-- Greeting Cards -->
+        <div class="row justify-content-center">
+            <!-- Card for Good Afternoon -->
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="50">
+                <div class="card p-3 card-hover" onclick="redirectToVideo('GoodAfternoon')">
+                    <div class="card-body">
+                        <h3 class="card-title text-success">Good Afternoon</h3>
+                        <img src="card_images/GoodAfternoon.png" alt="Sign for Good Afternoon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card for Good Evening -->
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card p-3 card-hover" onclick="redirectToVideo('GoodEvening')">
+                    <div class="card-body">
+                        <h3 class="card-title text-success">Good Evening</h3>
+                        <img src="card_images/GoodEvening.png" alt="Sign for Good Evening">
+                    </div>
+                </div>
+            </div>
+            <!-- Card for Good Morning -->
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="150">
+                <div class="card p-3 card-hover" onclick="redirectToVideo('GoodMorning')">
+                    <div class="card-body">
+                        <h3 class="card-title text-success">Good Morning</h3>
+                        <img src="card_images/GoodMorning.png" alt="Sign for Good Morning">
+                    </div>
+                </div>
+            </div>
+            <!-- Card for Good Night -->
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card p-3 card-hover" onclick="redirectToVideo('GoodNight')">
+                    <div class="card-body">
+                        <h3 class="card-title text-success">Good Night</h3>
+                        <img src="card_images/GoodNight.png" alt="Sign for Good Night">
+                    </div>
+                </div>
+            </div>
+            <!-- Card for Hello -->
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="250">
+                <div class="card p-3 card-hover" onclick="redirectToVideo('Hello')">
+                    <div class="card-body">
+                        <h3 class="card-title text-success">Hello</h3>
+                        <img src="card_images/Hello.png" alt="Sign for Hello">
+                    </div>
+                </div>
+            </div>
+            <!-- Card for Hi -->
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card p-3 card-hover" onclick="redirectToVideo('Hi')">
+                    <div class="card-body">
+                        <h3 class="card-title text-success">Hi</h3>
+                        <img src="card_images/Hi.png" alt="Sign for Hi">
+                    </div>
+                </div>
+            </div>
+            <!-- Card for Namaste -->
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="350">
+                <div class="card p-3 card-hover" onclick="redirectToVideo('Namaste')">
+                    <div class="card-body">
+                        <h3 class="card-title text-success">Namaste</h3>
+                        <img src="card_images/Namaste.png" alt="Sign for Namaste">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Button -->
+        <div class="my-5">
+            <a href="greeting_test.html" class="btn btn-primary btn-lg">Test Your Greeting Sign Language Skills</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // Function to redirect to video page with the greeting as a query parameter
+        function redirectToVideo(greeting) {
+            window.location.href = `greeting_video.html?greeting=${greeting}`;
+        }
+    </script>
+</body>
+</html>

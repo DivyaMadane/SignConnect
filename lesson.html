@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice Sign</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .content {
+      display: flex;
+      gap: 40px;
+      margin-top: 30px;
+      align-items: center;
+    }
+    video, iframe {
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+    #sign-video {
+      width: 400px;
+      height: 300px;
+    }
+    #camera {
+      width: 400px;
+      height: 300px;
+      background: #333;
+    }
+    a.back {
+      color: #fff;
+      margin-top: 20px;
+      display: inline-block;
+      text-decoration: none;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<h1 id="title">Practice Alphabet</h1>
+
+<div class="content">
+  <video id="sign-video" controls></video>
+
+  <video id="camera" autoplay muted></video>
+</div>
+
+<a class="back" href="alphabet.html">← Back to Cards</a>
+
+<script>
+  // Get the alphabet letter from URL
+  const params = new URLSearchParams(window.location.search);
+  const letter = params.get('letter');
+
+  // Set title
+  document.getElementById('title').innerText = `Practice Alphabet: ${letter}`;
+
+  // Set video source
+  const signVideo = document.getElementById('sign-video');
+  signVideo.src = `videos/${letter}.mp4`; // Example: videos/A.mp4, videos/B.mp4, etc.
+
+  // Open Camera
+  const camera = document.getElementById('camera');
+  if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function(stream) {
+        camera.srcObject = stream;
+      })
+      .catch(function(error) {
+        console.log("Camera access error:", error);
+      });
+  }
+</script>
+
+</body>
+</html>

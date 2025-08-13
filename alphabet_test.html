@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SignConnect | Test Your Alphabet Skills</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #e0f7fa, #e1f5fe);
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .main-content {
+            flex: 1;
+        }
+        .navbar {
+            background: linear-gradient(to right, #43cea2, #185a9d);
+        }
+        .logo-img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        #webcam {
+            border: 2px solid #007bff;
+            border-radius: 10px;
+        }
+        #roi {
+            position: absolute;
+            border: none;
+            width: 640px;
+            height: 480px;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/logo.png" alt="Logo" class="logo-img">
+                <span>SignConnect</span>
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container text-center main-content py-5">
+        <h1 class="text-primary mb-4" data-aos="fade-down">Test Your Alphabet Sign Language Skills</h1>
+        <p class="lead text-secondary mb-4">Perform the alphabet sign shown below using your webcam.</p>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-3 mb-4">
+                    <h3 id="current-sign" class="text-success">Loading...</h3>
+                    <video id="webcam" autoplay playsinline width="640" height="480"></video>
+                    <div id="roi"></div>
+                </div>
+                <div id="result" class="alert" style="display: none;"></div>
+                <div class="mt-3">
+                    <h4>Score: <span id="score">0</span>/10</h4>
+                    <button id="next-sign" class="btn btn-success" onclick="newSign()">Next Sign</button>
+                    <button id="skip-sign" class="btn btn-warning ms-2" onclick="skipSign()">Skip Sign</button>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="module_alphabets.html" class="btn btn-secondary">Back to Alphabet Learning</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        const video = document.getElementById('webcam');
+        const currentSign = document.getElementById('current-sign');
+        const result = document.getElementById('result');
+        const scoreEl = document.getElementById('score');
+        const nextSignBtn = document.getElementById('next-sign');
+        const skipSignBtn = document.getElementById('skip-sign');
+        const roi = document.getElementById('roi');
+
+        let currentAlphabet = '';
+        let score = 0;
+        const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+        // Initialize webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+                video.onloadedmetadata = () => {
+                    roi.style.width = `${video.videoWidth}px`;
+                    roi.style.height = `${video.videoHeight}px`;
+                    roi.style.top = '0';
+                    roi.style.left = '0';
+                    newSign();
+                };
+            })
+            .catch(err => {
+                console.error('Webcam error:', err);
+                result.className = 'alert alert-danger';
+                result.textContent = `Error accessing webcam: ${err.name} - ${err.message}`;
+                result.style.display = 'block';
+            });
+
+        // Select new sign
+        function newSign() {
+            currentAlphabet = alphabets[Math.floor(Math.random() * alphabets.length)];
+            currentSign.textContent = `Sign: ${currentAlphabet}`;
+            result.style.display = 'none';
+            nextSignBtn.disabled = true;
+            skipSignBtn.disabled = false; // Enable skip button
+        }
+
+        // Skip current sign
+        function skipSign() {
+            result.style.display = 'none';
+            nextSignBtn.disabled = true;
+            skipSignBtn.disabled = true; // Disable skip button temporarily
+            newSign(); // Generate a new sign
+        }
+
+        // Capture and predict
+        function captureFrame() {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0);
+            return canvas.toDataURL('image/jpeg');
+        }
+
+        // Continuous prediction
+        setInterval(() => {
+            if (score < 10 && video.srcObject) {
+                const image = captureFrame();
+                console.log('Sending request to http://127.0.0.1:5000/predict...');
+                fetch('http://127.0.0.1:5000/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image })
+                })
+                .then(res => {
+                    console.log('Response status:', res.status);
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    console.log('Server response:', data);
+                    const predicted = data.prediction;
+                    if (predicted !== 'None' && predicted === currentAlphabet) {
+                        score += 1;
+                        scoreEl.textContent = score;
+                        result.className = 'alert alert-success';
+                        result.textContent = `✅ Correct: ${predicted}`;
+                        result.style.display = 'block';
+                        nextSignBtn.disabled = false;
+                        skipSignBtn.disabled = true; // Disable skip after correct prediction
+                        if (score >= 10) {
+                            result.textContent = `🎉 Test Completed! Final Score: ${score}/10`;
+                            nextSignBtn.disabled = true;
+                            skipSignBtn.disabled = true;
+                        } else {
+                            newSign();
+                        }
+                    } else if (predicted !== 'None') {
+                        result.className = 'alert alert-danger';
+                        result.textContent = `❌ You showed: ${predicted}`;
+                        result.style.display = 'block';
+                        nextSignBtn.disabled = false;
+                        skipSignBtn.disabled = false; // Enable skip on wrong prediction
+                    } else if (data.error) {
+                        result.className = 'alert alert-warning';
+                        result.textContent = `Server error: ${data.error}`;
+                        result.style.display = 'block';
+                    }
+                })
+                .catch(err => {
+                    console.error('Prediction error details:', err);
+                    result.className = 'alert alert-danger';
+                    result.textContent = `Error communicating with server: ${err.message}`;
+                    result.style.display = 'block';
+                });
+            }
+        }, 1500); // Check every 1.5 seconds
+
+        // Manual next sign
+        nextSignBtn.addEventListener('click', newSign);
+    </script>
+</body>
+</html>

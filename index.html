@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SignConnect | Welcome</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffede7, #e0f7fa);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .main-content {
+      flex: 1;
+      padding-bottom: 20px;
+    }
+    .navbar {
+      background: linear-gradient(to right, #ff6e40, #26c6da);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #fff !important;
+      transition: color 0.3s ease;
+    }
+    .navbar-brand:hover {
+      color: #e0f7fa !important;
+    }
+    .logo-img {
+      height: 45px;
+      margin-right: 15px;
+      transition: transform 0.3s ease;
+    }
+    .logo-img:hover {
+      transform: rotate(15deg);
+    }
+    .card {
+      margin-top: 50px;
+      padding: 40px;
+      border: 2px solid transparent;
+      border-image: linear-gradient(to right, #ff6e40, #26c6da) 1;
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      transform: translateY(-5px);
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Ccircle fill="%23ff6e40" fill-opacity="0.05" cx="100" cy="100" r="90"/%3E%3C/svg%3E');
+      z-index: 0;
+    }
+    .card-content {
+      position: relative;
+      z-index: 1;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #ff6e40;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .text-success {
+      color: #26c6da !important;
+    }
+    .lead {
+      color: #5d4037;
+      font-size: 1.1rem;
+    }
+    .btn-choice {
+      width: 230px;
+      margin: 12px;
+      font-size: 20px;
+      padding: 14px;
+      border-radius: 14px;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    .btn-success {
+      background: linear-gradient(to right, #26c6da, #00acc1);
+      color: #fff;
+    }
+    .btn-warning {
+      background: linear-gradient(to right, #ffb300, #ffca28);
+      color: #fff;
+    }
+    .btn-danger {
+      background: linear-gradient(to right, #d81b60, #f06292);
+      color: #fff;
+    }
+    .btn-choice:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+    .feature-col h4 {
+      color: #ff6e40;
+      font-weight: 600;
+    }
+    .feature-col p {
+      color: #5d4037;
+      font-size: 0.95rem;
+    }
+    footer {
+      background: #fff;
+      color: #5d4037;
+      padding: 10px;
+    }
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      .btn-choice { width: 180px; font-size: 18px; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark shadow">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="assets/logo.png" alt="Logo" class="logo-img">
+        <span>SignConnect</span>
+      </a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container text-center main-content">
+    <div class="card" data-aos="fade-up">
+      <div class="card-content">
+        <h1 class="mb-4">Welcome to <span class="text-success">SignConnect</span>! 👋</h1>
+        <p class="lead mb-5">
+          Master Sign Language step-by-step through fun lessons, real-time gesture detection, and gamified challenges. 
+          Select your skill level below to get started!
+        </p>
+        <div class="d-flex flex-column align-items-center">
+          <button class="btn btn-success btn-choice" onclick="chooseLevel('beginner')">Beginner</button>
+          <button class="btn btn-warning btn-choice" onclick="chooseLevel('intermediate')">Intermediate</button>
+          <button class="btn btn-danger btn-choice" onclick="chooseLevel('advanced')">Advanced</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-center mt-5" data-aos="fade-up" data-aos-delay="200">
+      <div class="col-md-4 mb-4 feature-col">
+        <h4>🎯 Personalized Learning</h4>
+        <p>Choose your learning track and progress at your own pace!</p>
+      </div>
+      <div class="col-md-4 mb-4 feature-col">
+        <h4>🧠 Smart Practice</h4>
+        <p>Practice using real-time gesture detection powered by ML models!</p>
+      </div>
+      <div class="col-md-4 mb-4 feature-col">
+        <h4>🏆 Progress Dashboard</h4>
+        <p>Track your success, earn stars, and celebrate achievements!</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center p-3 bg-light mt-auto">
+    © 2025 SignConnect | Empowering Communication
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+    function chooseLevel(level) {
+      sessionStorage.setItem('userLevel', level);
+      if (level === 'beginner') {
+        window.location.href = "levels_beginner.html";
+      } else if (level === 'intermediate') {
+        window.location.href = "levels_intermediate.html";
+      } else {
+        window.location.href = "levels_advanced.html";
+      }
+    }
+  </script>
+</body>
+</html>
